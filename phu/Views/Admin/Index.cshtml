@@ -1,0 +1,111 @@
+﻿@using phu.Models;
+@model IEnumerable<phu.Models.evenement>
+
+@{
+    ViewBag.Title = "Page d'administration";
+}
+
+@{
+    phu_bddEntities db = new phu_bddEntities();
+    int isAdmin = (from i in db.UserProfile
+                               where i.UserName == WebSecurity.CurrentUserName
+                               select i.user.FirstOrDefault().admin).FirstOrDefault();
+}
+@if(Request.IsAuthenticated && isAdmin == 1)
+{
+<h2>Page admin</h2>
+
+<p>
+    @Html.ActionLink("Créer un nouvel évènement", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.event_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.localisation.address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.max_people)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.actual_people)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.validate)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.event_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.localisation.address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.max_people)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.actual_people)
+            </td>
+            <td>
+                @{
+        if (item.description.Length > 50)
+        {
+            @Html.Raw(item.description.Substring(0, 50));
+        }
+        else
+        {
+            @Html.Raw(item.description);
+        }
+                }
+            </td>
+            <td>
+                @{
+        if (item.validate == 1)
+        {
+            <p>Validé</p>
+        }
+        else
+        {
+            <p>Non validé</p>
+        }
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Editer", "Edit", new { id = item.event_id }) |
+                @{
+        if (item.validate == 1)
+        {
+            @Html.ActionLink("Dévalider", "Validate", new { id = item.event_id })
+        }
+        else
+        {
+            @Html.ActionLink("Valider", "Validate", new { id = item.event_id })
+        }
+                } |
+                @Html.ActionLink("Supprimer", "Delete", new { id = item.event_id })
+            </td>
+        </tr>
+    }
+
+</table>
+}
+else
+{
+    Response.Redirect("~/Admin/Login");
+}

@@ -1,0 +1,70 @@
+﻿@model phu.Models.LoginModel
+
+
+
+@if (Request.IsAuthenticated && ViewBag.Title != "ExternalLoginFailure" && ViewBag.Title != "ExternalLoginConfirmation" && ViewBag.Title != "Login" && ViewBag.Title != "Register")
+{
+    <div class="head-top-log">
+    <span class="BjrUser">
+        Bonjour, @Html.ActionLink(User.Identity.Name, "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Gérer" })!
+    </span>
+    <span class="DecoUser">
+        @*@using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+        {
+            @Html.AntiForgeryToken()
+            <a href="javascript:document.getElementById('logoutForm').submit()">Se déconnecter</a>
+        }*@
+        @Html.ActionLink("Se déconnecter","LogOff","Account")
+    </span>
+    </div>
+    @*@Html.ActionLink("Créer son événement", "Create", "Event", null, new { @class = "btn btn-success btn-lg createevent", @style = "margin-bottom:20px" })*@
+}
+else if (ViewBag.Title != "ExternalLoginFailure" && ViewBag.Title != "ExternalLoginConfirmation" && ViewBag.Title != "Login" && ViewBag.Title != "Manage" && ViewBag.Title != "Register")
+{
+    @*<ul>
+            <li>@Html.ActionLink("S'inscrire", "Register", "Account"/*, routeValues: null, htmlAttributes: new { id = "registerLink" }*/)</li>
+            <li>@Html.ActionLink("Se connecter", "Login", "Account"/*, routeValues: null, htmlAttributes: new { id = "loginLink" }*/)</li>
+        </ul>*@
+    <div class="head-top">
+
+        @using (Html.BeginForm("Login", "Account"))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
+            //<fieldset>
+            //<legend>Formulaire de connexion</legend>
+            //<ol>
+            //                <li>
+            <span>
+                @Html.LabelFor(m => m.UserName) @Html.TextBoxFor(m => m.UserName, new { @class = "textbox" })
+                @Html.ValidationMessageFor(m => m.UserName)
+            </span>
+            //                </li>
+            //                <li>
+            <span>
+                @Html.LabelFor(m => m.Password) @Html.PasswordFor(m => m.Password, new { @class = "textbox" })
+                @Html.ValidationMessageFor(m => m.Password)
+            </span>
+            //                </li>
+            //                <li>
+            <span>
+                @Html.LabelFor(m => m.RememberMe/*, new { @class = "checkbox" }*/) @Html.CheckBoxFor(m => m.RememberMe)
+            </span>
+            //                </li>
+            //            </ol>
+            <span>
+                <input type="submit" value="Se connecter" />
+            </span>
+            //        </fieldset>
+            <span>
+                @Html.ActionLink("S'inscrire", "Register", "Account")
+            </span>
+
+        }
+    </div>
+    <section class="social" id="socialLoginForm">
+        <h3>Utilisez un autre service pour vous connecter.</h3>
+        @Html.Action("ExternalLoginsList", "Account", new { ReturnUrl = ViewBag.ReturnUrl })
+    </section>
+}

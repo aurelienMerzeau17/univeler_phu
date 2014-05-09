@@ -1,0 +1,87 @@
+﻿@model phu.Models.evenement
+@{
+    ViewBag.Title = "Create";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>evenement</legend>
+        <div class="editor-label">
+            @Html.Label("Name", new { @class = "labelValeurs" })
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.name)
+            @Html.ValidationMessageFor(model => model.name)
+        </div>
+
+        <div class="editor-label">
+            @Html.Label("Date Prevue", new { @class = "labelValeurs" })
+        </div>
+        <div class="editor-field">
+            <input type="text" class="txtDate" name="txtDatePrevue"/>
+            @Html.ValidationMessageFor(model => model.date_event)
+        </div>
+
+        <div class="editor-label">
+            @Html.Label("Adresse", new { @class = "labelValeurs" })
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.localisation.address)
+            @Html.ValidationMessageFor(model => model.localisation.address)
+        </div>
+        <div class="editor-label">
+            @Html.Label("Code Postal", new { @class = "labelValeurs" })
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.localisation.cp)
+            @Html.ValidationMessageFor(model => model.localisation.cp)
+        </div>
+        <div class="editor-label">
+            @Html.Label("Ville", new { @class = "labelValeurs" })
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.localisation.city)
+            @Html.ValidationMessageFor(model => model.localisation.city)
+        </div>
+
+
+        <div class="editor-label">
+            @Html.Label("Nombre maximum de participants", new { @class = "labelValeurs" })
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.max_people)
+            @Html.ValidationMessageFor(model => model.max_people)
+        </div>
+        <div class="editor-label">
+            @Html.Label("Description", new { @class = "labelValeurs" })
+        </div>
+        <div id="DivTinyMCE">
+            <textarea name="contentDescription" style="height:250px"></textarea>
+        </div>
+
+        <p>
+            <input type="submit" value="Créer" />
+        </p>
+    </fieldset>
+}
+<div>
+    @Html.ActionLink("Retour à la liste", "Index")
+</div>
+
+<script type="text/javascript">
+    tinymce.init({
+        selector: "textarea",
+        theme: "modern",
+        toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | forecolor "
+    });
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        $('.txtDate').datetimepicker();
+    });
+</script>  

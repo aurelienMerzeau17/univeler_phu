@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - PHU</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    @System.Web.Optimization.Styles.Render("~/Content/Site.css")
+    @System.Web.Optimization.Styles.Render("~/Content/themes/base/jquery-ui.css")
+    @System.Web.Optimization.Styles.Render("~/Content/bootstrap.min.css")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jquery-2.1.0.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jquery-1.8.2.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jquery-ui-1.8.24.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/MicrosoftAjax.debug.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/MicrosoftMvcAjax.debug.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/tinymce/tinymce.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/datepicker-fr.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/timepicker.js")
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+</head>
+<body>
+    <header>
+        <a href="@Url.Action("Index", "Home")">
+            <img src="/Images/logo.png" />
+        </a>
+        <div class="h3container">
+            <h3 style="display: inline-block;">Créateur d'événement à Bordeaux</h3>
+        </div>
+        <div class="content-wrapper">
+            <section id="login">
+                @{
+                    phu.Models.LoginModel log = new phu.Models.LoginModel();
+                }
+                @Html.Partial("_LoginPartial", log)
+            </section>
+            @*<ul id="menu">
+                <li>@Html.ActionLink("Accueil", "Index", "Home")</li>
+                <li>@Html.ActionLink("Evenements", "Index", "Event")</li>
+            </ul>*@
+        </div>
+        @*@RenderSection("featured", required: false)*@
+    </header>
+    <div id="body" class="row" style="margin:0 0;margin-top:50px">
+        @RenderBody();
+    </div>
+    <footer>
+        <nav class="navbar navbar-default" role="navigation" style="margin-bottom:0px">
+            <div class="container">
+                <p class="navbar-text">&copy; @DateTime.Now.Year - PHU Créateur d'événement</p>
+                <p class="navbar-text">Unilever 2014</p>
+            </div>
+        </nav>
+        <div class="content-wrapper">
+            <div class="float-left">
+            </div>
+        </div>
+    </footer>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

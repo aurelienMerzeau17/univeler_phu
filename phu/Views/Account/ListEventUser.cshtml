@@ -1,0 +1,56 @@
+﻿@using phu.Models;
+@model IEnumerable<phu.Models.evenement>
+
+
+<table>
+    <tr>
+        <th>
+            @Html.Label("Nom", new { @class = "labelValeurs" })
+        </th>
+        <th>
+            @Html.Label("Adresse", new { @class = "labelValeurs" })
+        </th>
+        <th>
+            @Html.Label("Nombre maximum de participants", new { @class = "labelValeurs" })
+        </th>
+        <th>
+            @Html.Label("Nombre d'inscrits", new { @class = "labelValeurs" })
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.localisation.address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.max_people)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.actual_people)
+            </td>
+            <td>
+                @Ajax.ActionLink("Details", "Details", new { id = item.event_id }, new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "DetailsEvent" })
+
+                @{
+                    phu_bddEntities db = new phu_bddEntities();        
+                }
+                @if (item.UserId == db.UserProfile.Where(i => i.UserName == WebSecurity.CurrentUserName).First().UserId)
+                {
+                    @Html.Label(" | ")
+                    @Html.ActionLink("Editer", "Edit", "Event", new { id = item.event_id }, null) 
+                    @Html.Label(" | ")
+                    @Html.ActionLink("Supprimer", "Delete", "Event", new { id = item.event_id }, null)
+                }
+
+            </td>
+        </tr>
+    }
+</table>
+
+@Html.ActionLink("Create New", "Create")

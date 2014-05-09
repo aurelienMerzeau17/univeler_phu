@@ -1,0 +1,80 @@
+﻿@using phu.Models;
+@model phu.Models.evenement
+
+@{
+    ViewBag.Title = "Suppression";
+}
+@{
+    phu_bddEntities db = new phu_bddEntities();
+    int isAdmin = (from i in db.UserProfile
+                   where i.UserName == WebSecurity.CurrentUserName
+                   select i.user.FirstOrDefault().admin).FirstOrDefault();
+}
+@if (Request.IsAuthenticated && isAdmin == 1)
+{
+<h3>êtes vous sur de vouloir supprimer cet évènement?</h3>
+<fieldset>
+    <legend>Evenement</legend>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.event_id)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.event_id)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.name)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.localisation.address)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.localisation.address)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.max_people)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.max_people)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.actual_people)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.actual_people)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.description)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.description)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.validate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.validate)
+    </div>
+</fieldset>
+ using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Retour", "Index")
+    </p>
+}
+}
+else
+{
+    Response.Redirect("~/Admin/Login");
+}

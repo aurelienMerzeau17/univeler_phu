@@ -1,0 +1,48 @@
+﻿@using WebMatrix.WebData;
+@using phu.Models;
+@model phu.Models.LocalPasswordModel
+@{
+    ViewBag.Title = "Manage";
+}
+<hgroup class="title">
+    <h1>Gérer le compte</h1>
+</hgroup>
+
+<p class="message-success">@ViewBag.StatusMessage</p>
+
+<p>Vous êtes connecté en tant que <strong>@User.Identity.Name</strong>.</p>
+
+<div class="manageInfo">
+    @if (ViewBag.HasLocalPassword)
+    {
+        @Html.Partial("_ChangePasswordPartial")
+    }
+    else
+    {
+        @Html.Partial("_SetPasswordPartial")
+    }
+
+    <section id="externalLogins">
+        @Html.Action("RemoveExternalLogins")
+
+        <h3>Ajouter une connexion externe</h3>
+        @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
+    </section>
+</div>
+
+<div class="manageEvent">
+    @{
+        List<evenement> list = new List<evenement>();
+        phu_bddEntities db = new phu_bddEntities();
+        UserProfile up = db.UserProfile.Where(i => i.UserName == WebSecurity.CurrentUserName).First();
+        foreach(event_user e in up.event_user)
+        { 
+            list.Add(e.evenement);
+        }
+
+        Html.RenderPartial("ListEventUser", list);
+    }
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

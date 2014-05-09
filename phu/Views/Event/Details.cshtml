@@ -1,0 +1,98 @@
+﻿@using phu.Models;
+@using System.Data;
+@using System.Data.Entity;
+@using System.Linq;
+@model phu.Models.evenement
+
+@{
+    ViewBag.Title = "Details";
+}
+@using (Html.BeginForm("ParticiperEvent", "Event"))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    @*<div class="display-label">
+             @Html.DisplayNameFor(model => model.event_id)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.event_id)
+        </div>*@
+    <input type="hidden" value="@Model.event_id" name="eventID" />
+    <div class="display-label">
+        @Html.Label("Nom", new { @class = "labelValeurs" })
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.name)
+    </div>
+
+    <div class="editor-label">
+        @Html.Label("Date Prevue", new { @class = "labelValeurs" })
+    </div>
+    <div class="editor-field">
+        @Html.DisplayFor(model => model.date_event)
+    </div>
+
+    <div class="display-label">
+        @Html.Label("Adresse", new { @class = "labelValeurs" })
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.localisation.address)
+    </div>
+
+    <div class="display-label">
+        @Html.Label("Nombre maximum de Participants", new { @class = "labelValeurs" })
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.max_people)
+    </div>
+
+    <div class="display-label">
+        @Html.Label("Nombre d'inscrits", new { @class = "labelValeurs" })
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.actual_people)
+    </div>
+
+    <div class="display-label">
+        @Html.Label("Description", new { @class = "labelValeurs" })
+    </div>
+    <div class="display-field">
+        @Html.Raw(Model.description)
+    </div>
+
+
+    if (Request.IsAuthenticated)
+    {
+        phu_bddEntities db = new phu_bddEntities();
+        UserProfile u = (from i in db.UserProfile
+                         where i.UserName == WebSecurity.CurrentUserName
+                         select i).First();
+
+        string nameE = (from i in u.event_user
+                        where i.event_id == Model.event_id
+                        select i.evenement.name).FirstOrDefault();
+        if (nameE == null)
+        {
+            <input type="submit" value="Participer" />
+        }
+        else if (nameE == Model.name)
+        {
+            <input type="submit" value="Participer" disabled="disabled" />
+            <br />
+            <label id="eventEnCours">Vous participez déjà à cet évènement.</label>
+    
+        }
+    }
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<script type="text/javascript">
+    $(function () {
+        $("#DetailsEvent").dialog({
+            modal: true
+        });
+    });
+</script>
+

@@ -1,0 +1,30 @@
+﻿@model phu.Models.LoginModel
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<hgroup class="title">
+    <h1>Connexion Administrateur</h1>
+</hgroup>
+@using (Html.BeginForm("Login", "Admin")) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+        <ol>
+            <li>
+                @Html.LabelFor(m => m.UserName)
+                @Html.TextBoxFor(m => m.UserName, new { @class = "textbox" })
+                @Html.ValidationMessageFor(m => m.UserName)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Password)
+                @Html.PasswordFor(m => m.Password, new { @class = "textbox" })
+                @Html.ValidationMessageFor(m => m.Password)
+            </li>
+            <li>
+                @Html.CheckBoxFor(m => m.RememberMe)
+                @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
+            </li>
+        </ol>
+        <input type="submit" value="Se connecter" />
+}

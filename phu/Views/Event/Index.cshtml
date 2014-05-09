@@ -1,0 +1,59 @@
+﻿@model IEnumerable<phu.Models.evenement>
+
+@{
+    ViewBag.Title = "Index";
+}
+@if (Request.IsAuthenticated)
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+}
+<table>
+    <tr>
+        <th>
+            @Html.Label("Nom", new { @class = "labelValeurs" })
+        </th>
+        <th>
+            @Html.Label("Adresse", new { @class = "labelValeurs" })
+        </th>
+        <th>
+            @Html.Label("Nombre maximum de participants", new { @class = "labelValeurs" })
+        </th>
+        <th>
+            @Html.Label("Nombre d'inscrits", new { @class = "labelValeurs" })
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.localisation.address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.max_people)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.actual_people)
+            </td>
+            <td>
+                @Ajax.ActionLink("Details", "Details", new { id = item.event_id }, new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "DetailsEvent" })
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+
+<div id="DetailsEvent">
+
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

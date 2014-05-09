@@ -1,0 +1,62 @@
+﻿@using System.Web.Script.Serialization;
+@model IEnumerable<phu.Models.evenement>
+@{
+    List<phu.Models.Geographie> loc = new List<phu.Models.Geographie>();
+    foreach (phu.Models.evenement e in Model)
+    {
+        loc.Add(new phu.Models.Geographie
+        {
+            adresse = e.localisation.address,
+            cp = e.localisation.cp,
+            city = e.localisation.city,
+            event_id = e.event_id,
+        });
+    }
+    var mesMarkers = Html.Raw(new JavaScriptSerializer().Serialize(loc));
+}
+
+<script type="text/javascript">
+    var Markers = @mesMarkers;
+    var map;
+    var geocoder;
+    var mylocation = new Array();
+    function markicons() {
+        var latlng = new google.maps.LatLng(44.83816,-0.581639);
+        var myOptions = {
+            zoom: 13,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+        geocoder = new google.maps.Geocoder();
+
+        for (var i in Markers) {
+            mylocation[i] = [Markers[i].adresse, Markers[i].cp, Markers[i].city, Markers[i].event_id];
+        }
+
+        for (var i in mylocation) {
+            (function (TheAddress){
+                geocoder.geocode( { 'address': TheAddress[0] + " " + TheAddress[1] + " " + TheAddress[2]}, function(results, status) {
+                    var marker = new google.maps.Marker({
+                        map: map,
+                        position: results[0].geometry.location,
+                    });
+                    google.maps.event.addListener(marker, 'click', function () {
+                        $.ajax({
+                            type: "GET",
+                            url: "/Event/Details",
+                            data: ({id: TheAddress[3] }),
+                            dataType: "html",
+                            success: function (result) {
+                                $("#DetailsEvent").html(result);
+                            }
+                        });
+                    });
+                });
+            })(mylocation[i]);
+        }
+    }
+    window.onload = markicons;
+</script>
+
+<div id="map_canvas" class="col-md-9"></div>
