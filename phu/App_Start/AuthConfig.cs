@@ -22,9 +22,9 @@ namespace phu
             //    consumerKey: "",
             //    consumerSecret: "");
 
-            //OAuthWebSecurity.RegisterFacebookClient(
-            //    appId: "",
-            //    appSecret: "");
+            OAuthWebSecurity.RegisterFacebookClient(
+                appId: "1488446718037695",
+                appSecret: "6db9ab53b2e0327d05917ee14987263d");
 
             //OAuthWebSecurity.RegisterGoogleClient();
         }
