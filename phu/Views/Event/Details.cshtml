@@ -76,12 +76,17 @@
         {
             <input type="submit" value="Participer" />
         }
-        else if (nameE == Model.name)
+        else if (nameE == Model.name && u.UserId != Model.UserId)
         {
-            <input type="submit" value="Participer" disabled="disabled" />
-            <br />
             <label id="eventEnCours">Vous participez déjà à cet évènement.</label>
-    
+            <br />
+            @Html.ActionLink("Se désinscrire", "desinscrire", "Event", new {id_event = Model.event_id , id_user = u.UserId}, null);
+        }
+        else if ( u.UserId == Model.UserId)
+        {
+            <label id="eventEnCours">Vous avez créé cet évènement.</label>
+            <br />
+            @Html.ActionLink("Supprimer", "Delete", "Event", new {id = Model.event_id}, null);
         }
     }
 }

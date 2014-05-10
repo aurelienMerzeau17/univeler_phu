@@ -68,7 +68,7 @@ namespace phu.Controllers
                 evenement.actual_people += 1;
                 db.evenement.Add(evenement);
                 db.SaveChanges();
-                
+
                 eu.event_id = db.evenement.Max(i => i.event_id);
                 eu.UserId = db.UserProfile.Where(i => i.UserName == WebSecurity.CurrentUserName).First().UserId;
                 db.event_user.Add(eu);
@@ -98,11 +98,12 @@ namespace phu.Controllers
         // POST: /Default1/Edit/5
 
         [HttpPost, ValidateInput(false)]
-        public ActionResult Edit(evenement evenement, string contentDescription)
+        public ActionResult Edit(evenement evenement, string contentDescription, string txtDatePrevue)
         {
             if (ModelState.IsValid)
             {
                 evenement vent = db.evenement.Find(evenement.event_id);
+                vent.date_event = Convert.ToDateTime(txtDatePrevue);
                 vent.name = evenement.name;
                 vent.description = contentDescription;
                 vent.max_people = evenement.max_people;
@@ -178,5 +179,27 @@ namespace phu.Controllers
             db.SaveChanges();
             return RedirectToAction("Index", "Home");
         }
+
+        public ActionResult desinscrire(int id_event, int id_user)
+        {
+            evenement evenement = db.evenement.Find(id_event);
+
+
+            event_user ev_user = (from i in db.event_user
+                                  where i.event_id == id_event && i.UserId == id_user
+                                  select i).First();
+
+
+            UserProfile u = (from i in db.UserProfile
+                             where i.UserId == id_user
+                             select i).First();
+
+
+            db.event_user.Remove(ev_user);
+            evenement.actual_people -= 1;
+            db.SaveChanges();
+            return RedirectToAction("Index", "Home");
+        }
+
     }
 }

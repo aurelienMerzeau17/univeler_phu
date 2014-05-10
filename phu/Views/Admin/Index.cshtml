@@ -21,9 +21,6 @@
 <table>
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.event_id)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.name)
         </th>
         <th>
@@ -47,9 +44,7 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.event_id)
-            </td>
+            @Html.HiddenFor(modelItem => item.event_id)
             <td>
                 @Html.DisplayFor(modelItem => item.name)
             </td>

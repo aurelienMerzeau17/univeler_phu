@@ -40,12 +40,21 @@ namespace phu.Controllers
         }
 
         [HttpPost, ValidateInput(false)]
-        public ActionResult Create(evenement evenement, string contentDescription)
+        public ActionResult Create(evenement evenement, string contentDescription, string txtDatePrevue)
         {
+            evenement.date_event = Convert.ToDateTime(txtDatePrevue);
             evenement.description = contentDescription;
+            evenement.UserId = db.UserProfile.Where(i => i.UserName == WebSecurity.CurrentUserName).First().UserId;
             if (ModelState.IsValid)
             {
+                event_user eu = new event_user();
+                evenement.actual_people += 1;
                 db.evenement.Add(evenement);
+                db.SaveChanges();
+
+                eu.event_id = db.evenement.Max(i => i.event_id);
+                eu.UserId = db.UserProfile.Where(i => i.UserName == WebSecurity.CurrentUserName).First().UserId;
+                db.event_user.Add(eu);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -66,22 +75,21 @@ namespace phu.Controllers
         }
 
         [HttpPost, ValidateInput(false)]
-        public ActionResult Edit(evenement evenement, string contentDescription)
+        public ActionResult Edit(evenement evenement, string contentDescription, string txtDatePrevue)
         {
-            evenement.description = contentDescription;
             if (ModelState.IsValid)
             {
                 evenement vent = db.evenement.Find(evenement.event_id);
+                vent.date_event = Convert.ToDateTime(txtDatePrevue);
                 vent.name = evenement.name;
-                vent.description = evenement.description;
+                vent.description = contentDescription;
                 vent.max_people = evenement.max_people;
-                localisation loc = db.localisation.Find(evenement.localisation_id);
-                loc.address = evenement.localisation.address;
-                loc.city = evenement.localisation.city;
-                loc.cp = evenement.localisation.cp;
-                db.Entry(evenement).State = EntityState.Modified;
+                vent.localisation.address = evenement.localisation.address;
+                vent.localisation.cp = evenement.localisation.cp;
+                vent.localisation.city = evenement.localisation.city;
+
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
             ViewBag.localisation_id = new SelectList(db.localisation, "localisation_id", "address", evenement.localisation_id);
             return View(evenement);
