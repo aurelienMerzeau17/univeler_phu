@@ -155,17 +155,6 @@ input[type=submit], input[type=reset] {
     background: #ebf2fc;
 }
 
-.head-top {
-    clear:both;
-    display: block;
-    /*float: left;*/
-}
-
-.head-top-log {
-    width:320px;
-    margin: auto;
-}
-
 p{
     color:black;
 }
@@ -185,4 +174,38 @@ label #eventEnCours{
     color:#ff0000;
     font-size:20px;
     font-family:'Lucida Console';
+}
+
+.btnFB{
+    background-image:url("/Images/facebook-icon.png");
+    height: 40px;
+    width: 40px;
+}
+
+.btnTw{
+    background-image:url("/Images/twitter-icon.png");
+    height: 40px;
+    width: 40px;
+}
+
+.btnGp{
+    background-image:url("/Images/googleplus-icon.jpg");
+    height: 40px;
+    width: 40px;
+}
+
+.head-top{
+    width:1300px;
+    height:40px;
+    margin:auto;
+}
+.formSocial{
+    width:200px;
+    height:40px;
+    float:left;
+}
+.formConnection{
+    width:1100px;
+    height:40px;
+    float:left;
 }

@@ -21,13 +21,8 @@
 }
 else if (ViewBag.Title != "ExternalLoginFailure" && ViewBag.Title != "ExternalLoginConfirmation" && ViewBag.Title != "Login" && ViewBag.Title != "Manage" && ViewBag.Title != "Register")
 {
-    @*<ul>
-            <li>@Html.ActionLink("S'inscrire", "Register", "Account"/*, routeValues: null, htmlAttributes: new { id = "registerLink" }*/)</li>
-            <li>@Html.ActionLink("Se connecter", "Login", "Account"/*, routeValues: null, htmlAttributes: new { id = "loginLink" }*/)</li>
-        </ul>*@
-    <div class="head-top">
 
-        @using (Html.BeginForm("Login", "Account"))
+        using (Html.BeginForm("Login", "Account", FormMethod.Post, new {@class = "formConnection" }))
         {
             @Html.AntiForgeryToken()
             @Html.ValidationSummary(true)
@@ -62,9 +57,7 @@ else if (ViewBag.Title != "ExternalLoginFailure" && ViewBag.Title != "ExternalLo
             </span>
 
         }
-    </div>
-    <section class="social" id="socialLoginForm">
-        <h3>Utilisez un autre service pour vous connecter.</h3>
-        @Html.Action("ExternalLoginsList", "Account", new { ReturnUrl = ViewBag.ReturnUrl })
-    </section>
+            @Html.Action("ExternalLoginsList", "Account", new { ReturnUrl = ViewBag.ReturnUrl })
+    
+    
 }

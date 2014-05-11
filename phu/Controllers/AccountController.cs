@@ -260,54 +260,54 @@ namespace phu.Controllers
             }
         }
 
-        //
-        // POST: /Account/ExternalLoginConfirmation
+        
+         //POST: /Account/ExternalLoginConfirmation
 
-        //[HttpPost]
-        //[AllowAnonymous]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult ExternalLoginConfirmation(RegisterExternalLoginModel model, string returnUrl)
-        //{
-        //    string provider = null;
-        //    string providerUserId = null;
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult ExternalLoginConfirmation(RegisterExternalLoginModel model, string returnUrl)
+        {
+            string provider = null;
+            string providerUserId = null;
 
-        //    if (User.Identity.IsAuthenticated || !OAuthWebSecurity.TryDeserializeProviderUserId(model.ExternalLoginData, out provider, out providerUserId))
-        //    {
-        //        return RedirectToAction("Manage");
-        //    }
+            if (User.Identity.IsAuthenticated || !OAuthWebSecurity.TryDeserializeProviderUserId(model.ExternalLoginData, out provider, out providerUserId))
+            {
+                return RedirectToAction("Manage");
+            }
 
-        //    if (ModelState.IsValid)
-        //    {
-        //        // Insérer un nouvel utilisateur dans la base de données
-        //        using (UsersContext db = new UsersContext())
-        //        {
-        //            UserProfile user = db.UserProfiles.FirstOrDefault(u => u.UserName.ToLower() == model.UserName.ToLower());
-        //            // Vérifier si l'utilisateur n'existe pas déjà
-        //            if (user == null)
-        //            {
-        //                // Insérer le nom dans la table des profils
-        //                db.UserProfiles.Add(new UserProfile { UserName = model.UserName });
-        //                db.SaveChanges();
+            if (ModelState.IsValid)
+            {
+                // Insérer un nouvel utilisateur dans la base de données
+                using (UsersContext db = new UsersContext())
+                {
+                    UserProfile user = db.UserProfiles.FirstOrDefault(u => u.UserName.ToLower() == model.UserName.ToLower());
+                    // Vérifier si l'utilisateur n'existe pas déjà
+                    if (user == null)
+                    {
+                        // Insérer le nom dans la table des profils
+                        db.UserProfiles.Add(new UserProfile { UserName = model.UserName });
+                        db.SaveChanges();
 
-        //                OAuthWebSecurity.CreateOrUpdateAccount(provider, providerUserId, model.UserName);
-        //                OAuthWebSecurity.Login(provider, providerUserId, createPersistentCookie: false);
+                        OAuthWebSecurity.CreateOrUpdateAccount(provider, providerUserId, model.UserName);
+                        OAuthWebSecurity.Login(provider, providerUserId, createPersistentCookie: false);
 
-        //                return RedirectToLocal(returnUrl);
-        //            }
-        //            else
-        //            {
-        //                ModelState.AddModelError("UserName", "Le nom d'utilisateur existe déjà. Entrez un nom d'utilisateur différent.");
-        //            }
-        //        }
-        //    }
+                        return RedirectToLocal(returnUrl);
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("UserName", "Le nom d'utilisateur existe déjà. Entrez un nom d'utilisateur différent.");
+                    }
+                }
+            }
 
-        //    ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(provider).DisplayName;
-        //    ViewBag.ReturnUrl = returnUrl;
-        //    return View(model);
-        //}
+            ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(provider).DisplayName;
+            ViewBag.ReturnUrl = returnUrl;
+            return View(model);
+        }
 
-        //
-        // GET: /Account/ExternalLoginFailure
+        
+         //GET: /Account/ExternalLoginFailure
 
         [AllowAnonymous]
         public ActionResult ExternalLoginFailure()

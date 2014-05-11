@@ -29,20 +29,21 @@
         <div class="h3container">
             <h3 style="display: inline-block;">Créateur d'événement à Bordeaux</h3>
         </div>
-        <div class="content-wrapper">
-            <section id="login">
-                @{
-                    phu.Models.LoginModel log = new phu.Models.LoginModel();
-                }
-                @Html.Partial("_LoginPartial", log)
-            </section>
+        @*<div class="content-wrapper">*@
+        <div class="head-top">
+            @*<section id="login">*@
+            @{
+                phu.Models.LoginModel log = new phu.Models.LoginModel();
+            }
+            @Html.Partial("_LoginPartial", log)
+            @*</section>*@
             @*<ul id="menu">
                 <li>@Html.ActionLink("Accueil", "Index", "Home")</li>
                 <li>@Html.ActionLink("Evenements", "Index", "Event")</li>
             </ul>*@
-        </div>
-        @*@RenderSection("featured", required: false)*@
-    </header>
+            </div>
+            @*@RenderSection("featured", required: false)*@
+</header>
     <div id="body" class="row" style="margin:0 0;margin-top:50px">
         @RenderBody();
     </div>
