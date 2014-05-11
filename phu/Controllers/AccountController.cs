@@ -241,6 +241,7 @@ namespace phu.Controllers
 
             if (OAuthWebSecurity.Login(result.Provider, result.ProviderUserId, createPersistentCookie: false))
             {
+                returnUrl = null;
                 return RedirectToLocal(returnUrl);
             }
 
@@ -291,8 +292,9 @@ namespace phu.Controllers
 
                         OAuthWebSecurity.CreateOrUpdateAccount(provider, providerUserId, model.UserName);
                         OAuthWebSecurity.Login(provider, providerUserId, createPersistentCookie: false);
-
+                        returnUrl = null;
                         return RedirectToLocal(returnUrl);
+                        //return 
                     }
                     else
                     {
