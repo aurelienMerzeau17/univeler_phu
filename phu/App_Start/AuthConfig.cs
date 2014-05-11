@@ -18,15 +18,15 @@ namespace phu
             //    clientId: "",
             //    clientSecret: "");
 
-            //OAuthWebSecurity.RegisterTwitterClient(
-            //    consumerKey: "",
-            //    consumerSecret: "");
+            OAuthWebSecurity.RegisterTwitterClient(
+                consumerKey: "g2H8KIbk1elsocxwuEuV7VYA2",
+                consumerSecret: "eJb5kGFnZGLLXSe05xulWw8G7t7mjM6BntseTBKKdnsYHMzqL2");
 
             OAuthWebSecurity.RegisterFacebookClient(
                 appId: "1488446718037695",
                 appSecret: "6db9ab53b2e0327d05917ee14987263d");
 
-            //OAuthWebSecurity.RegisterGoogleClient();
+            OAuthWebSecurity.RegisterGoogleClient();
         }
     }
 }
