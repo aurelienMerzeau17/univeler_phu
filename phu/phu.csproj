@@ -363,8 +363,8 @@
       <LastGenOutput>phu_bdd.Designer.cs</LastGenOutput>
     </EntityDeploy>
     <Compile Include="Images\facebook-icon.png" />
-    <None Include="Images\googleplus-icon.jpg" />
-    <None Include="Images\twitter-icon.png" />
+    <Compile Include="Images\googleplus-icon.jpg" />
+    <Compile Include="Images\twitter-icon.png" />
     <Content Include="Models\phu_bdd.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>phu_bdd.edmx</DependentUpon>
