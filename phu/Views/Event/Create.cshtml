@@ -59,9 +59,9 @@
         <div class="editor-label">
             @Html.Label("Description", new { @class = "labelValeurs" })
         </div>
-        <div id="DivTinyMCE">
+        @*<div id="DivTinyMCE">*@
             <textarea name="contentDescription" style="height:250px"></textarea>
-        </div>
+        @*</div>*@
 
         <p>
             <input type="submit" value="Créer" />
@@ -72,13 +72,13 @@
     @Html.ActionLink("Retour à la liste", "Index")
 </div>
 
-<script type="text/javascript">
+@*<script type="text/javascript">
     tinymce.init({
         selector: "textarea",
         theme: "modern",
         toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | forecolor "
     });
-</script>
+</script>*@
 
 <script type="text/javascript">
     $(function () {
