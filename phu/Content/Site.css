@@ -259,3 +259,12 @@ label #eventEnCours{
 .manageInfo table {
         margin:15px;
     }
+
+#footer {
+    background-color: #FAFAFA;
+    bottom: 0;
+    height: 60px;
+    position: absolute;
+    width: 100%;
+    display:block;
+}
