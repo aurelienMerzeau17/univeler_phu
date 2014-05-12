@@ -11,8 +11,8 @@ namespace phu.Models
     public class UsersContext : DbContext
     {
         public UsersContext()
-            //: base("phu_bddEntities")
-            : base("DefaultConnection")
+            : base("phu_bddEntities")
+            //: base("DefaultConnection")
         {
         }
 
