@@ -33,13 +33,12 @@ namespace phu.Filters
                     {
                         if (!context.Database.Exists())
                         {
-                            // Créer la base de données SimpleMembership sans schéma de migration Entity Framework
+                            // Create the SimpleMembership database without Entity Framework migration schema
                             ((IObjectContextAdapter)context).ObjectContext.CreateDatabase();
                         }
                     }
 
                     WebSecurity.InitializeDatabaseConnection("DefaultConnection", "UserProfile", "UserId", "UserName", autoCreateTables: true);
-                    //WebSecurity.InitializeDatabaseConnection("phu_bddEntities", "UserProfile", "UserId", "UserName", autoCreateTables: true);
                 }                
                 catch (Exception ex)
                 {
