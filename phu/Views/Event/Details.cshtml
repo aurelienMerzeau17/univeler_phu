@@ -12,12 +12,6 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
-    @*<div class="display-label">
-             @Html.DisplayNameFor(model => model.event_id)
-        </div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model.event_id)
-        </div>*@
     <input type="hidden" value="@Model.event_id" name="eventID" />
     <div class="display-label">
         @Html.Label("Nom", new { @class = "labelValeurs" })

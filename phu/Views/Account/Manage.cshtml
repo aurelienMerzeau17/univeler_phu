@@ -12,36 +12,39 @@
 
 <p>Vous êtes connecté en tant que <strong>@User.Identity.Name</strong>.</p>
 
-<div class="manageInfo">
-    @if (ViewBag.HasLocalPassword)
-    {
-        @Html.Partial("_ChangePasswordPartial")
-    }
-    else
-    {
-        @Html.Partial("_SetPasswordPartial")
-    }
-
-    <section id="externalLogins">
-        @Html.Action("RemoveExternalLogins")
-
-        <h3>Ajouter une connexion externe</h3>
-        @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
-    </section>
-</div>
-
-<div class="manageEvent">
-    @{
-        List<evenement> list = new List<evenement>();
-        phu_bddEntities db = new phu_bddEntities();
-        UserProfile up = db.UserProfile.Where(i => i.UserName == WebSecurity.CurrentUserName).First();
-        foreach(event_user e in up.event_user)
-        { 
-            list.Add(e.evenement);
+<div class="manageCompte">
+    <div class="manageInfo">
+        @if (ViewBag.HasLocalPassword)
+        {
+            @Html.Partial("_ChangePasswordPartial")
+        }
+        else
+        {
+            @Html.Partial("_SetPasswordPartial")
         }
 
-        Html.RenderPartial("ListEventUser", list);
-    }
+        <section id="externalLogins">
+            @Html.Action("RemoveExternalLogins")
+
+            <h3>Ajouter une connexion externe</h3>
+            @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
+        </section>
+    </div>
+
+    <div class="manageEvent">
+        <h2>Votre liste d'évenements</h2>
+        @{
+            List<evenement> list = new List<evenement>();
+            phu_bddEntities db = new phu_bddEntities();
+            UserProfile up = db.UserProfile.Where(i => i.UserName == WebSecurity.CurrentUserName).First();
+            foreach (event_user e in up.event_user)
+            {
+                list.Add(e.evenement);
+            }
+
+            Html.RenderPartial("ListEventUser", list);
+        }
+    </div>
 </div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

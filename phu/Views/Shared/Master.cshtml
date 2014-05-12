@@ -23,11 +23,15 @@
 </head>
 <body>
     <header>
-        <a href="@Url.Action("Index", "Home")">
+        @*<a href="@Url.Action("Index", "Home")">
             <img src="/Images/logo.png" />
-        </a>
+        </a>*@
         <div class="h3container">
-            <h3 style="display: inline-block;">Créateur d'événement à Bordeaux</h3>
+            <a href="@Url.Action("Index", "Home")">
+                <h3 style="display: inline-block;">PHU</h3>
+                <br/>
+                <h2 style="display: inline-block;">Créateur d'évenements à Bordeaux</h2>
+            </a>            
         </div>
         @*<div class="content-wrapper">*@
         <div class="head-top">
@@ -45,13 +49,12 @@
             @*@RenderSection("featured", required: false)*@
 </header>
     <div id="body" class="row" style="margin:0 0;margin-top:50px">
-        @RenderBody();
+        @RenderBody()
     </div>
     <footer>
         <nav class="navbar navbar-default" role="navigation" style="margin-bottom:0px">
             <div class="container">
-                <p class="navbar-text">&copy; @DateTime.Now.Year - PHU Créateur d'événement</p>
-                <p class="navbar-text">Unilever 2014</p>
+                <p>PHU Créateur d'événement  -  Univeler &copy; @DateTime.Now.Year</p>
             </div>
         </nav>
         <div class="content-wrapper">

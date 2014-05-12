@@ -9,9 +9,9 @@
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>evenement</legend>
+        <legend>Créer un Évenement :</legend>
         <div class="editor-label">
-            @Html.Label("Name", new { @class = "labelValeurs" })
+            @Html.Label("Nom", new { @class = "labelValeurs" })
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.name)

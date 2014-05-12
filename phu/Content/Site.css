@@ -51,11 +51,26 @@ header{
 color: black;
 }
 .h3container{
-    background-color:#6495ed;
+    background-image:linear-gradient(#3ebdff, #6495ed);
     padding: 10px;
-    margin-top: 15px;
+    
+    /*margin-top: 15px;*/
 }
 
+.h3container h3{
+    font-family:'Monotype Corsiva';
+    font-size:72px;
+    color:white;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+.h3container h2{
+    font-family:'Monotype Corsiva';
+    font-size:36px;
+    color:white;
+    margin-bottom: 0;
+    margin-top: 0;
+}
 body {
  font-family:"trebuchet ms",sans-serif;
  font-size:90%;
@@ -91,13 +106,13 @@ label.inline {
  margin-right:50px;
  }
 input, textarea, select, option {
- background-color: #dff8ff;/*#FFF3F3;*/
+ background-color: #ebf2fc;/*#FFF3F3;*/
  color:#333;
  }
 input, textarea, select {
  padding:3px;
- border:1px solid #F5C5C5;
- border-radius:5px;
+ border:1px solid #6495ED;
+ border-radius:0px;
  /*width:200px;*/
  /*box-shadow:1px 1px 2px #C0C0C0 inset;*/
  margin-left:auto;
@@ -120,7 +135,7 @@ input[type=submit], input[type=reset] {
 
 #map_canvas {
     background-color: #fff;
-    height: 450px;
+    height: 600px;
     margin: auto;
 }
 
@@ -209,3 +224,38 @@ label #eventEnCours{
     height:40px;
     float:left;
 }
+
+.container p{
+    padding:15px;
+    color:#333;
+    font-family:'Monotype Corsiva';
+    font-size:20px;
+}
+
+.manageCompte{
+    width:auto;
+    margin:15px;
+    height:auto;
+    margin-top: 50px;
+}
+
+.manageEvent{
+    width:50%;
+    float:left;
+    text-align:left;
+}
+
+    .manageEvent table, .manageEvent a{
+        margin:15px;
+    }
+    /*.manageEvent a{
+        margin:15px;
+    }*/
+.manageInfo{
+    width:50%;
+    float:left;
+    text-align:left;
+}
+.manageInfo table {
+        margin:15px;
+    }
