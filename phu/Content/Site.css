@@ -264,7 +264,7 @@ label #eventEnCours{
     background-color: #FAFAFA;
     bottom: 0;
     height: 60px;
-    position: absolute;
+    position: fixed;
     width: 100%;
     display:block;
 }
