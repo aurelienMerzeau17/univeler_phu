@@ -125,10 +125,8 @@ namespace phu.Controllers
             }
             return View(evenement);
         }
-
         //
         // POST: /Default1/Delete/5
-
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
