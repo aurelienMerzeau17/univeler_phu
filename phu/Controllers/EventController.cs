@@ -56,7 +56,7 @@ namespace phu.Controllers
         //
         // POST: /Default1/Create
 
-        [HttpPost, ValidateInput(true)]
+        [HttpPost, ValidateInput(false)]
         public ActionResult Create(evenement evenement, string contentDescription, string txtDatePrevue)
         {
             evenement.date_event = Convert.ToDateTime(txtDatePrevue);
