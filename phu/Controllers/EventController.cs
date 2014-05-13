@@ -60,7 +60,16 @@ namespace phu.Controllers
         public ActionResult Create(evenement evenement, string contentDescription, string txtDatePrevue)
         {
 
-            evenement.date_event = Convert.ToDateTime(txtDatePrevue);
+            //evenement.date_event = Convert.ToDateTime(txtDatePrevue);
+            DateTime dateValue;
+            if(DateTime.TryParse(txtDatePrevue, out dateValue))
+            {
+                evenement.date_event = dateValue;
+            }
+            else
+            {
+                evenement.date_event = DateTime.MinValue;
+            }
             evenement.description = contentDescription;
             evenement.UserId = db.UserProfile.Where(i => i.UserName == WebSecurity.CurrentUserName).First().UserId;
             if (ModelState.IsValid)
