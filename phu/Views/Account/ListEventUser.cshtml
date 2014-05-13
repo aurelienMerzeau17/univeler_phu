@@ -35,7 +35,7 @@
                 @Html.DisplayFor(modelItem => item.actual_people)
             </td>
             <td>
-                @Ajax.ActionLink("Details", "Details", new { id = item.event_id }, new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "DetailsEvent" })
+                @Ajax.ActionLink("Details", "Details", "Event", new { id = item.event_id }, new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "DetailsEvent" })
 
                 @{
                     phu_bddEntities db = new phu_bddEntities();        
