@@ -24,7 +24,7 @@ namespace phu.Controllers
 
         public ActionResult Index()
         {
-            var evenement = db.evenement.Include(e => e.localisation);
+            var evenement = db.evenement.Where(c => c.date_event >= DateTime.Now).Include(e => e.localisation);
             return View(evenement.ToList());
         }
 

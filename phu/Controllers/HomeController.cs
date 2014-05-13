@@ -18,7 +18,7 @@ namespace phu.Controllers
         {
             List<evenement> ev = new List<evenement>();
 
-            ev = db.evenement.Where( i => i.validate == 1 && i.date_event <= DateTime.Now ).ToList();
+            ev = db.evenement.Where( i => i.validate == 1 && i.date_event >= DateTime.Now ).ToList();
             
             return View(ev);
         }
