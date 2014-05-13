@@ -49,19 +49,9 @@ namespace phu.Controllers
         [HttpPost, ValidateInput(false)]
         public ActionResult Create(evenement evenement, string contentDescription, string txtDatePrevue)
         {
-
-            //DateTime dateValue;
-            //if(DateTime.TryParse(txtDatePrevue, out dateValue))
-            //{
-            //    evenement.date_event = dateValue;
-            //}
-            //else
-            //{
-            //    evenement.date_event = DateTime.MinValue;
-            //}
             CultureInfo provider = CultureInfo.InvariantCulture;
             provider = new CultureInfo("fr-FR");
-            evenement.date_event = DateTime.ParseExact(txtDatePrevue,"g", provider);
+            evenement.date_event = DateTime.ParseExact(txtDatePrevue,/*"g"*/"dd/MM/yyyy h:mm", provider);
             evenement.description = contentDescription;
             evenement.UserId = db.UserProfile.Where(i => i.UserName == WebSecurity.CurrentUserName).First().UserId;
             if (ModelState.IsValid)
@@ -109,15 +99,9 @@ namespace phu.Controllers
         [HttpPost, ValidateInput(false)]
         public ActionResult Edit(evenement evenement, string contentDescription, string txtDatePrevue)
         {
-            DateTime dateValue;
-            if (DateTime.TryParse(txtDatePrevue, out dateValue))
-            {
-                evenement.date_event = dateValue;
-            }
-            else
-            {
-                evenement.date_event = DateTime.MinValue;
-            }
+            CultureInfo provider = CultureInfo.InvariantCulture;
+            provider = new CultureInfo("fr-FR");
+            evenement.date_event = DateTime.ParseExact(txtDatePrevue, "g", provider);
             if (ModelState.IsValid)
             {
                 evenement vent = db.evenement.Find(evenement.event_id);
