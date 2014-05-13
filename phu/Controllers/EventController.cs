@@ -59,21 +59,29 @@ namespace phu.Controllers
         [HttpPost, ValidateInput(false)]
         public ActionResult Create(evenement evenement, string contentDescription, string txtDatePrevue)
         {
+
             evenement.date_event = Convert.ToDateTime(txtDatePrevue);
             evenement.description = contentDescription;
             evenement.UserId = db.UserProfile.Where(i => i.UserName == WebSecurity.CurrentUserName).First().UserId;
             if (ModelState.IsValid)
             {
-                event_user eu = new event_user();
-                evenement.actual_people += 1;
-                db.evenement.Add(evenement);
-                db.SaveChanges();
+                try
+                {
+                    event_user eu = new event_user();
+                    evenement.actual_people += 1;
+                    db.evenement.Add(evenement);
+                    db.SaveChanges();
 
-                eu.event_id = db.evenement.Max(i => i.event_id);
-                eu.UserId = db.UserProfile.Where(i => i.UserName == WebSecurity.CurrentUserName).First().UserId;
-                db.event_user.Add(eu);
-                db.SaveChanges();
-                return RedirectToAction("Index", "Home");
+                    eu.event_id = db.evenement.Max(i => i.event_id);
+                    eu.UserId = db.UserProfile.Where(i => i.UserName == WebSecurity.CurrentUserName).First().UserId;
+                    db.event_user.Add(eu);
+                    db.SaveChanges();
+                    return RedirectToAction("Index", "Home");
+                }
+                catch (Exception ex)
+                {
+                    throw new InvalidOperationException(ex.ToString());
+                }
             }
 
             ViewBag.localisation_id = new SelectList(db.localisation, "localisation_id", "address", evenement.localisation_id);
