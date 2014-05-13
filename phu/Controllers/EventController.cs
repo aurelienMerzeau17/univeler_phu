@@ -36,17 +36,7 @@ namespace phu.Controllers
             return PartialView(evenement);
         }
 
-        //[HttpPost]
-        //public ActionResult PageDetails(int id)
-        //{
-        //    evenement evenement = db.evenement.Find(id);
-
-        //    return View("Details",evenement);
-        //}
-
-        //
-        // GET: /Default1/Create
-
+        
         public ActionResult Create()
         {
             ViewBag.localisation_id = new SelectList(db.localisation, "localisation_id", "address");
@@ -60,7 +50,6 @@ namespace phu.Controllers
         public ActionResult Create(evenement evenement, string contentDescription, string txtDatePrevue)
         {
 
-            //evenement.date_event = Convert.ToDateTime(txtDatePrevue);
             DateTime dateValue;
             if(DateTime.TryParse(txtDatePrevue, out dateValue))
             {
@@ -117,10 +106,19 @@ namespace phu.Controllers
         [HttpPost, ValidateInput(false)]
         public ActionResult Edit(evenement evenement, string contentDescription, string txtDatePrevue)
         {
+            DateTime dateValue;
+            if (DateTime.TryParse(txtDatePrevue, out dateValue))
+            {
+                evenement.date_event = dateValue;
+            }
+            else
+            {
+                evenement.date_event = DateTime.MinValue;
+            }
             if (ModelState.IsValid)
             {
                 evenement vent = db.evenement.Find(evenement.event_id);
-                vent.date_event = Convert.ToDateTime(txtDatePrevue);
+                vent.date_event = evenement.date_event;
                 vent.name = evenement.name;
                 vent.description = contentDescription;
                 vent.max_people = evenement.max_people;
