@@ -65,8 +65,8 @@ namespace phu.Controllers
             evenement.UserId = db.UserProfile.Where(i => i.UserName == WebSecurity.CurrentUserName).First().UserId;
             if (ModelState.IsValid)
             {
-                try
-                {
+                //try
+                //{
                     event_user eu = new event_user();
                     evenement.actual_people += 1;
                     db.evenement.Add(evenement);
@@ -77,11 +77,11 @@ namespace phu.Controllers
                     db.event_user.Add(eu);
                     db.SaveChanges();
                     return RedirectToAction("Index", "Home");
-                }
-                catch (Exception ex)
-                {
-                    throw new InvalidOperationException(ex.ToString());
-                }
+                //}
+                //catch (Exception ex)
+                //{
+                //    throw new InvalidOperationException(ex.ToString());
+                //}
             }
 
             ViewBag.localisation_id = new SelectList(db.localisation, "localisation_id", "address", evenement.localisation_id);
