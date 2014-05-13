@@ -51,28 +51,21 @@ namespace phu.Controllers
         {
             CultureInfo provider = CultureInfo.InvariantCulture;
             provider = new CultureInfo("fr-FR");
-            evenement.date_event = DateTime.ParseExact(txtDatePrevue,/*"g"*/"dd/MM/yyyy h:mm", provider);
+            evenement.date_event = DateTime.ParseExact(txtDatePrevue, "g", provider);
             evenement.description = contentDescription;
             evenement.UserId = db.UserProfile.Where(i => i.UserName == WebSecurity.CurrentUserName).First().UserId;
             if (ModelState.IsValid)
             {
-                //try
-                //{
-                    event_user eu = new event_user();
-                    evenement.actual_people += 1;
-                    db.evenement.Add(evenement);
-                    db.SaveChanges();
+                event_user eu = new event_user();
+                evenement.actual_people += 1;
+                db.evenement.Add(evenement);
+                db.SaveChanges();
 
-                    eu.event_id = db.evenement.Max(i => i.event_id);
-                    eu.UserId = db.UserProfile.Where(i => i.UserName == WebSecurity.CurrentUserName).First().UserId;
-                    db.event_user.Add(eu);
-                    db.SaveChanges();
-                    return RedirectToAction("Index", "Home");
-                //}
-                //catch (Exception ex)
-                //{
-                //    throw new InvalidOperationException(ex.ToString());
-                //}
+                eu.event_id = db.evenement.Max(i => i.event_id);
+                eu.UserId = db.UserProfile.Where(i => i.UserName == WebSecurity.CurrentUserName).First().UserId;
+                db.event_user.Add(eu);
+                db.SaveChanges();
+                return RedirectToAction("Index", "Home");
             }
 
             ViewBag.localisation_id = new SelectList(db.localisation, "localisation_id", "address", evenement.localisation_id);
