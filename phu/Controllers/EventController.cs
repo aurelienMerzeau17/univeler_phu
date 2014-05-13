@@ -10,7 +10,7 @@ using System.Data.Objects;
 using System.Data.Entity.Infrastructure;
 using System.Web.Security;
 using WebMatrix.WebData;
-
+using System.Globalization;
 namespace phu.Controllers
 {
     public class EventController : Controller
@@ -59,7 +59,9 @@ namespace phu.Controllers
             //{
             //    evenement.date_event = DateTime.MinValue;
             //}
-            evenement.date_event = DateTime.Parse(txtDatePrevue);
+            CultureInfo provider = CultureInfo.InvariantCulture;
+            provider = new CultureInfo("fr-FR");
+            evenement.date_event = DateTime.ParseExact(txtDatePrevue,"g", provider);
             evenement.description = contentDescription;
             evenement.UserId = db.UserProfile.Where(i => i.UserName == WebSecurity.CurrentUserName).First().UserId;
             if (ModelState.IsValid)
